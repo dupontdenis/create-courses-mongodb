@@ -14,8 +14,10 @@ const coursesReadAll = async (req, res) => {
     //         debug(error);
     //     })
     try {
-        const response = await axios.get('http://localhost:3000/api/courses');
-        res.render('courses-list', {courses: response.data.courses});
+        // const response = await axios.get('http://localhost:3000/api/courses');
+        // res.render('courses-list', {courses: response.data.courses});
+        const {data: {courses}} = await axios.get('http://localhost:3000/api/courses');
+        res.render('courses-list', {courses});
         
     } catch (error) {
         // handle error
