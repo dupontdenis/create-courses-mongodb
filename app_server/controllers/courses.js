@@ -1,22 +1,30 @@
 const axios = require('axios');
 const debug = require('debug')('app_server');
 
-const coursesReadAll = (req, res) => {
-    debug('-Server------------- READ ALL-------------------------------')
-    axios.get('http://localhost:3000/api/courses')
-        .then(function (response) {
-            res.render('courses-list', {
-                courses: response.data.courses
-            });
-        })
-        .catch(function (error) {
-            // handle error
+const coursesReadAll = async (req, res) => {
+    debug('-------------- READ ALL-------------------------------')
+    // axios.get('http://localhost:3000/api/courses')
+    //     .then(function (response) {
+    //         res.render('courses-list', {
+    //             courses: response.data.courses
+    //         });
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         debug(error);
+    //     })
+    try {
+        const response = await axios.get('http://localhost:3000/api/courses');
+        res.render('courses-list', {courses: response.data.courses});
+        
+    } catch (error) {
+        // handle error
             debug(error);
-        })
+    }
 };
 
 const coursesReadOne = (req, res) => {
-    debug('-Server------------- READ ONE-------------------------------')
+    debug('------------ READ ONE-------------------------------')
 
     axios.get(`http://localhost:3000/api/courses/${req.params.id}`)
         .then(function (response) {
@@ -31,7 +39,7 @@ const coursesReadOne = (req, res) => {
 };
 
 const coursesDeleteOne = (req, res) => {
-   // debug('-Server------------- DELETE ONE-------------------------------')
+   // debug('------------ DELETE ONE-------------------------------')
     axios.delete(`http://localhost:3000/api/courses/${req.params.id}`)
         .then(function (response) {
             res.redirect(`/courses/`);
@@ -44,7 +52,7 @@ const coursesDeleteOne = (req, res) => {
 
 // rempli le form !
 const coursesUpdateOne = (req, res) => {
-    debug('-Server------------- coursesUpdateOne -------------------------------')
+    debug('------------ coursesUpdateOne -------------------------------')
     axios.get(`http://localhost:3000/api/courses/${req.params.id}`)
         .then(function (response) {
             res.render('course-update-form', {
@@ -67,12 +75,12 @@ const renderForm = (req, res) => {
 };
 
 const coursesForm = (req, res) => {
-    debug('-Server---------------   FORM  -----------------------')
+    debug('--------------   FORM  -----------------------')
     renderForm(req, res);
 };
 
 const coursesAddOne = (req, res) => {
-    debug('-Server---------------   ADD ONE  -----------------------')
+    debug('--------------   ADD ONE  -----------------------')
     if (!req.body.info || !req.body.name) {
         res.redirect(`/courses/new?err=val`);
     }

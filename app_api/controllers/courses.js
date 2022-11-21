@@ -11,7 +11,7 @@ const debug = require('debug')('app_api');
 const coursesReadAll = async (req, res) => {
     debug("API--- coursesReadAll ---");
     const courses = await Courses.find({});
-    res.json({ courses: courses });
+    res.json({ courses });
 }
 
 // const coursesCreateOne = (req, res) => {
@@ -28,7 +28,7 @@ const coursesReadAll = async (req, res) => {
 const coursesCreateOne = async (req, res) => {
     debug("API--- coursesCreateOne ---");
     await Courses.create(req.body, (error, course) => {
-        res.json(course);
+        res.json({ course });
     })
 }
 
