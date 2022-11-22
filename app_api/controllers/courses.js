@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Courses = require('../models/courses');
-mongoose.connect('mongodb://localhost/my_courses', { useUnifiedTopology: true, useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost/my_courses', { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1:27017/my_courses', { useUnifiedTopology: true, useNewUrlParser: true });
 
 const debug = require('debug')('app_api');
 
